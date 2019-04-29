@@ -1,0 +1,25 @@
+web:
+   image: tutum/apache-php
+   environment:
+     - ALLOW_OVERRIDE=true
+   ports:
+     - "80:80"
+   links:
+     - db
+   volumes:
+     - ./src:/app
+
+db:
+  image: mariadb
+  restart: always
+  container_name: mboardloginDB
+  volumes:
+    - ./database/mboardlogin.sql:/docker-entrypoint-initdb.d
+
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: mboardlogin
+    MYSQL_PASSWORD: FedUlQ8Hbl5KGxeF
+    MYSQL_DATABASE: mboardlogin
+  ports:
+    - "8889:3306"
